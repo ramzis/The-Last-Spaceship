@@ -1,0 +1,113 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+#pragma kernel Decay
+#pragma kernel CalculateColliders
+#pragma kernel Heal
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+Texture2D<float4> Original;
+RWTexture2D<float4> Result;
+RWStructuredBuffer<int> Colliders;
+
+float Dx;
+float Dy;
+float Power;
+
+[numthreads(32,32,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    
+    float4 lel = Result[id.xy];
+    lel.w = sqrt((id.x-Dx)*(id.x-Dx)+(id.y-Dy)*(id.y-Dy))<Power?0:lel.w;
+    Result[id.xy] = lel;
+}
+
+[numthreads(32,32,1)]
+void Heal (uint3 id : SV_DispatchThreadID)
+{
+    
+    float4 lel = Result[id.xy];
+    lel.w = sqrt((id.x-Dx)*(id.x-Dx)+(id.y-Dy)*(id.y-Dy))<Power?Original[id.xy].w:lel.w;
+    Result[id.xy] = lel;
+}
+
+// [numthreads(32,32,1)]
+// void Decay (uint3 id : SV_DispatchThreadID)
+// {
+//     int empty =0;
+//     for(int y =0;y<13;y++)
+//     {
+//         for(int x =0;x<13;x++)
+//         {
+//             int2 k = int2(id.x + x-6,id.y +y-6);
+//             if(Result[k].w==0)
+//             empty++;
+//         }
+//     }
+
+//     float4 lel = Result[id.xy];
+
+//     //lel.w = sqrt((id.x-Dx)*(id.x-Dx)+(id.y-Dy)*(id.y-Dy))<Power?0:lel.w;
+//     if(empty>84)lel.w=0;
+
+//     Result[id.xy] = lel;
+
+// }
+
+
+[numthreads(32,32,1)]
+void Decay (uint3 id : SV_DispatchThreadID)
+{
+    int empty =0;
+    for(int y =0;y<11;y++)
+    {
+        for(int x =0;x<11;x++)
+        {
+            int2 k = int2(id.x + x-5,id.y +y-5);
+            if(Result[k].w==0)
+            empty++;
+        }
+    }
+
+    float4 lel = Result[id.xy];
+
+    //lel.w = sqrt((id.x-Dx)*(id.x-Dx)+(id.y-Dy)*(id.y-Dy))<Power?0:lel.w;
+    if(empty>60)lel.w=0;
+    if(empty<60)lel.w=1;
+
+    Result[id.xy] = lel;
+
+}
+
+[numthreads(32,32,1)]
+void CalculateColliders (uint3 id : SV_DispatchThreadID)
+{
+    int x=id.x;
+    int y=id.y;
+
+    Colliders[x+y*64] = Result[int2(x*16,y*16)].w;
+
+}
+
+// [numthreads(32,32,1)]
+// void Decay (uint3 id : SV_DispatchThreadID)
+// {
+//     int empty =0;
+//     for(int y =0;y<21;y++)
+//     {
+//         for(int x =0;x<21;x++)
+//         {
+//             int2 k = int2(id.x + x-10,id.y +y-10);
+//             if(Result[k].w==0)
+//             empty++;
+//         }
+//     }
+
+//     float4 lel = Result[id.xy];
+
+//     //lel.w = sqrt((id.x-Dx)*(id.x-Dx)+(id.y-Dy)*(id.y-Dy))<Power?0:lel.w;
+//     if(empty>225)lel.w=0;
+
+//     Result[id.xy] = lel;
+
+// }

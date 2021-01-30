@@ -47,6 +47,8 @@ namespace Logging
         {
             public static readonly string GAME_MANAGER = "GAME_MANAGER";
             public static readonly string EFFECTS = "EFFECTS";
+            public static readonly string CELESTIAL_BODY = "CELESTIAL_BODY";
+            public static readonly string PLANET_MANAGER = "PLANET_MANAGER";
         }
     }
 }

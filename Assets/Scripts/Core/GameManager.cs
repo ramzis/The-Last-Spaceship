@@ -5,15 +5,16 @@ using Logging;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+[RequireComponent(typeof(CelestialBodyManager))]
 public class GameManager : MonoBehaviour
 {
-    public GameOptions gameOptions;
+    public GameOptions GameOptions;
+    public CelestialBodyManager CelestialBodyManager;
 
-    public Random random;
-
-    private void Awake()
+    private void OnValidate()
     {
-        Debug.Assert(gameOptions != null, "Missing game options!");
+        Debug.Assert(GameOptions != null, "Missing game options!");
+        Debug.Assert(CelestialBodyManager != null, "Missing celestial body manager!");
     }
 
     void Start()
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour
         SetLoggingOptions();
         L.og(L.Contexts.GAME_MANAGER, "Start()");
         Random.InitState(DateTime.Now.Millisecond);
+        StartCoroutine(GameLoop());
     }
 
     void Update()
@@ -28,13 +30,22 @@ public class GameManager : MonoBehaviour
         
     }
 
+    IEnumerator GameLoop()
+    {
+        L.og(L.Contexts.GAME_MANAGER, "Starting GameLoop()");
+
+        var planet1 = (Planet)CelestialBodyManager.CreateCelestialBody(CelestialBody.Type.PLANET);
+
+        yield return null;
+    }
+
     void SetLoggingOptions()
     {
-        // Set Logging optionsx
+        // Set Logging options
         L.SetOptions(
-            gameOptions.doLogging,
-            gameOptions.overrideEnableAllContexts,
-            gameOptions.loggingContexts
+            GameOptions.doLogging,
+            GameOptions.overrideEnableAllContexts,
+            GameOptions.loggingContexts
         );
         L.og(L.Contexts.GAME_MANAGER, "Set logging options.");
     }

@@ -17,4 +17,9 @@ MonoBehaviour:
   loggingContexts:
   - GAME_MANAGER
   Ship_Speed: 500
-  Ship_RotationSpeed: 250
+  Ship_RotationSpeed: 100
+  ShipCannon_Distance: 5
+  PlanetPrefabs:
+  - {fileID: 1190899598417968470, guid: 99bff59e0491ea646a04a06720b3d486, type: 3}
+  StarPrefabs:
+  - {fileID: 4659687943583638737, guid: 9adc43b0b33929d409867d04327b4396, type: 3}

@@ -13,4 +13,11 @@ public class GameOptions : ScriptableObject
     // Ship Controller
     public float Ship_Speed;
     public float Ship_RotationSpeed;
+
+    // Ship Cannon
+    public float ShipCannon_Distance;
+
+    // Planet Manager
+    public GameObject[] PlanetPrefabs;
+    public GameObject[] StarPrefabs;
 }
