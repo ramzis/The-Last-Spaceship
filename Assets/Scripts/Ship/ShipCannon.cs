@@ -12,6 +12,10 @@ public class ShipCannon : MonoBehaviour
     public LineRenderer Line;
     public GameOptions GameOptions;
 
+    public static Action<bool> OnShipToolSwitch;
+    public static Action<bool> OnShipCannonActive;
+    public static Action<bool> OnShipCannonDisabled;
+
     private void OnValidate()
     {
         Debug.Assert(GameOptions != null, "Missing game options!");
@@ -32,8 +36,17 @@ public class ShipCannon : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             doHeal = !doHeal;
+            OnShipToolSwitch(doHeal);
         }
         Line.enabled = false;
+        if (Input.GetKeyDown(KeyCode.Space) && OnShipCannonActive != null)
+        {
+            OnShipCannonActive(doHeal);
+        }
+        if (Input.GetKeyUp(KeyCode.Space) && OnShipCannonDisabled != null)
+        {
+            OnShipCannonDisabled(doHeal);
+        }
         if (Input.GetKey(KeyCode.Space))
         {
             success = false;
