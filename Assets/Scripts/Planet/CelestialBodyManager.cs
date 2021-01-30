@@ -64,6 +64,7 @@ public class CelestialBodyManager : MonoBehaviour
                     Random.Range(0, GameOptions.PlanetPrefabs.Length)];
                 var cb_go = GameObject.Instantiate(planetPrefab, Vector3.zero, Quaternion.identity);
                 var cb = cb_go.AddComponent<Planet>();
+                cb_go.AddComponent<CircleCollider2D>();
                 cb.go = cb_go;
                 return cb;
             }
@@ -73,6 +74,7 @@ public class CelestialBodyManager : MonoBehaviour
                     Random.Range(0, GameOptions.StarPrefabs.Length)];
                 var cb_go = GameObject.Instantiate(starPrefab, Vector3.zero, Quaternion.identity);
                 var cb = cb_go.AddComponent<Star>();
+                cb_go.AddComponent<CircleCollider2D>();
                 cb.go = cb_go;
                 return cb;
             }

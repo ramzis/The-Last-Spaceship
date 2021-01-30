@@ -16,8 +16,10 @@ MonoBehaviour:
   overrideEnableAllContexts: 1
   loggingContexts:
   - GAME_MANAGER
-  Ship_Speed: 500
+  Ship_Speed: 250
   Ship_RotationSpeed: 100
+  Map_SizeX: 20
+  Map_SizeY: 24.8
   ShipCannon_Distance: 5
   PlanetPrefabs:
   - {fileID: 1190899598417968470, guid: 99bff59e0491ea646a04a06720b3d486, type: 3}

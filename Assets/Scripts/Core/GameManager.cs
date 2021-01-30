@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
         L.og(L.Contexts.GAME_MANAGER, "Starting GameLoop()");
 
         var planet1 = (Planet)CelestialBodyManager.CreateCelestialBody(CelestialBody.Type.PLANET);
+        // var star1 = (Star)CelestialBodyManager.CreateCelestialBody(CelestialBody.Type.STAR);
 
         yield return null;
     }

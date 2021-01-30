@@ -14,6 +14,10 @@ public class GameOptions : ScriptableObject
     public float Ship_Speed;
     public float Ship_RotationSpeed;
 
+    // Map
+    public float Map_SizeX;
+    public float Map_SizeY;
+
     // Ship Cannon
     public float ShipCannon_Distance;
 

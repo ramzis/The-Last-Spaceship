@@ -194,6 +194,7 @@ GameObject:
   - component: {fileID: 1124057185}
   - component: {fileID: 1124057184}
   - component: {fileID: 1124057183}
+  - component: {fileID: 1124057186}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -261,11 +262,25 @@ Transform:
   m_GameObject: {fileID: 1124057182}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
-  m_LocalScale: {x: 0.2, y: 0.14285713, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 2088570947}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1124057186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124057182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50f23e17f5ad4257afb6688b22e1348e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 2088570947}
+  smoothTime: 0.3
 --- !u!1 &2088570944
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,6 +295,7 @@ GameObject:
   - component: {fileID: 2088570949}
   - component: {fileID: 2088570948}
   - component: {fileID: 2088570950}
+  - component: {fileID: 2088570951}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Player
@@ -331,8 +347,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 7, z: 1}
-  m_Children:
-  - {fileID: 1124057185}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -499,3 +514,16 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &2088570951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2088570944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf96fbae7adb38b4da2a60b1ec4c2625, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameOptions: {fileID: 11400000, guid: 508313ed588a54e40bc57c22cf6b494c, type: 2}

@@ -23,7 +23,9 @@ public class ShipController : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.S))
         {
-            rb.AddForce(-rb.transform.up * Time.deltaTime * GameOptions.Ship_Speed);
+            rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, Time.deltaTime * GameOptions.Ship_Speed);
+            rb.angularVelocity = Mathf.Lerp(rb.angularVelocity, 0f, Time.deltaTime);
+            // rb.AddForce(-rb.transform.up * Time.deltaTime * GameOptions.Ship_Speed);
         }
         else if (Input.GetKey(KeyCode.A))
         {
