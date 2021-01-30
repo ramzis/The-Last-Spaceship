@@ -12,6 +12,8 @@ public class ShipCannon : MonoBehaviour
     public LineRenderer Line;
     public GameOptions GameOptions;
 
+    public LayerMask RaycastMask;
+
     public Action OnShipCannonActive;
     public Action OnShipCannonDisabled;
 
@@ -72,7 +74,7 @@ public class ShipCannon : MonoBehaviour
     private RaycastHit2D hit;
     public (Vector2, bool) ShootRay(bool doHeal)
     {
-        hit = Physics2D.Raycast(transform.position, transform.up, GameOptions.ShipCannon_Distance);
+        hit = Physics2D.Raycast(transform.position, transform.up, GameOptions.ShipCannon_Distance, RaycastMask);
         if (hit.collider == null) return (Vector2.zero, false);
         var calc = hit.collider.transform.GetComponent<CalcExplosion>();
         if (calc != null) calc.DoDamage(100f, hit.point, doHeal);

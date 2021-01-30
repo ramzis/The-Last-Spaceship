@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Logging;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(CelestialBodyManager))]
@@ -27,15 +28,19 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            Scene scene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(scene.name);
+        }
     }
 
     IEnumerator GameLoop()
     {
         L.og(L.Contexts.GAME_MANAGER, "Starting GameLoop()");
 
-        var planet1 = (Planet)CelestialBodyManager.CreateCelestialBody(CelestialBody.Type.PLANET);
-        // var star1 = (Star)CelestialBodyManager.CreateCelestialBody(CelestialBody.Type.STAR);
+        // var planet1 = (Planet)CelestialBodyManager.CreateCelestialBody(CelestialBody.Type.PLANET);
+        var star1 = (Star)CelestialBodyManager.CreateCelestialBody(CelestialBody.Type.STAR);
 
         yield return null;
     }

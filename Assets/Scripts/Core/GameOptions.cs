@@ -17,6 +17,8 @@ public class GameOptions : ScriptableObject
     // Map
     public float Map_SizeX;
     public float Map_SizeY;
+    public float Map_SectorCountX;
+    public float Map_SectorCountY;
 
     // Ship Cannon
     public float ShipCannon_Distance;
