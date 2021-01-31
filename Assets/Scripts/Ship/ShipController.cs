@@ -17,21 +17,21 @@ public class ShipController : MonoBehaviour
 
     void ProcessInput()
     {
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
             rb.AddForce(rb.transform.up * Time.deltaTime * GameOptions.Ship_Speed);
         }
-        else if (Input.GetKey(KeyCode.S))
+        else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {
             rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, Time.deltaTime * GameOptions.Ship_Speed);
             rb.angularVelocity = Mathf.Lerp(rb.angularVelocity, 0f, Time.deltaTime);
             // rb.AddForce(-rb.transform.up * Time.deltaTime * GameOptions.Ship_Speed);
         }
-        else if (Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             rb.AddTorque(Time.deltaTime * GameOptions.Ship_RotationSpeed);
         }
-        else if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             rb.AddTorque(-Time.deltaTime * GameOptions.Ship_RotationSpeed);
         }

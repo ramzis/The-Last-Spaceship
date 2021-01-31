@@ -14,8 +14,9 @@ public class ShipCannon : MonoBehaviour
 
     public LayerMask RaycastMask;
 
-    public Action OnShipCannonActive;
-    public Action OnShipCannonDisabled;
+    public static Action<bool> OnShipToolSwitch;
+    public static Action<bool> OnShipCannonActive;
+    public static Action<bool> OnShipCannonDisabled;
 
     private void OnValidate()
     {
@@ -37,15 +38,16 @@ public class ShipCannon : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             doHeal = !doHeal;
+            OnShipToolSwitch(doHeal);
         }
         Line.enabled = false;
         if (Input.GetKeyDown(KeyCode.Space) && OnShipCannonActive != null)
         {
-            OnShipCannonActive();
+            OnShipCannonActive(doHeal);
         }
         if (Input.GetKeyUp(KeyCode.Space) && OnShipCannonDisabled != null)
         {
-            OnShipCannonDisabled();
+            OnShipCannonDisabled(doHeal);
         }
         if (Input.GetKey(KeyCode.Space))
         {
