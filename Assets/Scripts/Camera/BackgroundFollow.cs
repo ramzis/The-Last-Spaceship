@@ -14,7 +14,7 @@ public class BackgroundFollow : MonoBehaviour
             for(int x=0;x<7;x++)
             {
                 tiles[x+y*7].transform.position = new Vector3((x-3)*10.24f,(y-2)*10.24f,0);
-                tiles[x+y*7].transform.rotation = Quaternion.Euler(0,0,Random.Range(0,4)*90f);
+                //tiles[x+y*7].transform.rotation = Quaternion.Euler(0,0,Random.Range(0,4)*90f);
             }
         }
     }
@@ -43,19 +43,19 @@ public class BackgroundFollow : MonoBehaviour
                 tilePosInt = new Vector3(Mathf.Round(tilePosInt.x/10.24f),Mathf.Round(tilePosInt.y/10.24f),0);
                 if(tilePosInt.x - playerPosInt.x>=4)
                 {
-                    tiles[x+y*7].transform.Translate(-xJump,0,0,Space.World);
+                    tiles[x+y*7].transform.Translate(-xJump*(int)( (Mathf.Abs(tilePosInt.x - playerPosInt.x)-4)/7.0f+1),0,0,Space.World);
                 }
                 if(tilePosInt.x - playerPosInt.x<=-4)
                 {
-                    tiles[x+y*7].transform.Translate(xJump,0,0,Space.World);
+                    tiles[x+y*7].transform.Translate(xJump*(int)( (Mathf.Abs(tilePosInt.x - playerPosInt.x)-4)/7.0f+1),0,0,Space.World);
                 }
                 if(tilePosInt.y - playerPosInt.y>=3)
                 {
-                    tiles[x+y*7].transform.Translate(0,-yJump,0,Space.World);
+                    tiles[x+y*7].transform.Translate(0,-yJump*(int)( (Mathf.Abs(tilePosInt.y - playerPosInt.y)-3)/5.0f+1),0,Space.World);
                 }
                 if(tilePosInt.y - playerPosInt.y<=-3)
                 {
-                    tiles[x+y*7].transform.Translate(0,yJump,0,Space.World);
+                    tiles[x+y*7].transform.Translate(0,yJump*(int)( (Mathf.Abs(tilePosInt.y - playerPosInt.y)-3)/5.0f+1),0,Space.World);
                 }
             }
         }
