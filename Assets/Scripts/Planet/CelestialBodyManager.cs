@@ -66,6 +66,11 @@ public class CelestialBodyManager : MonoBehaviour
                     Random.Range(0, GameOptions.PlanetPrefabs.Length)];
                 var cb_go = GameObject.Instantiate(planetPrefab, Vector3.zero, Quaternion.identity);
                 var cb = cb_go.AddComponent<Planet>();
+                cb.responses = new List<(string, CelestialBody.EventID)>();
+                if (Random.Range(0f, 100f) > 50f)
+                {
+                    cb.responses.Add(("You have found a new home!", new CelestialBody.EventID("home")));
+                }
                 cb.Name = "Planet_"+planetCount;
                 planetCount++;
                 cb.go = cb_go;
