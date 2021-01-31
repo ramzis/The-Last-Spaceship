@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
             }
             case "interact beginner planet":
             {
+                TextboxManager.TextQueue.Enqueue(e.msg);
                 gameState = GameState.STATE_WAITING_FOR_STAR_INTERACTION;
                 break;
             }
@@ -107,6 +108,7 @@ public class GameManager : MonoBehaviour
 
         // Inspecting changes to STATE_WAITING_FOR_STAR_INTERACTION
         yield return new WaitWhile(() => gameState != GameState.STATE_WAITING_FOR_STAR_INTERACTION);
+        DestroyBegginerPlanets();
         SpawnArrayOfBeginnerStars();
 
         // Mining changes to STATE_DESTROYING_STARS
@@ -122,6 +124,7 @@ public class GameManager : MonoBehaviour
         TextboxManager.TextQueue.Enqueue("Your fuel tank is all filled up! Now that you have enough fuel in your ship, your radar navigation has turned on. The radnav system lets you know which sector you are in at all times. It will also help you discover more potential home planets. When fuel runs out, look for a star to mine or your radar will not have enough power to discover any new planets!");
         TextboxManager.TextQueue.Enqueue("Keep following your radar to explore more planets. When you find one that suits you, you can make it your new home.");
 
+        SpawnRandomStuff();
         yield return new WaitWhile(() => gameState != GameState.STATE_WAITING_FOR_SETTLE);
 
         Scene scene = SceneManager.GetActiveScene();
@@ -163,6 +166,11 @@ public class GameManager : MonoBehaviour
     }
 
     void DestroyBegginerPlanets()
+    {
+
+    }
+
+    void SpawnRandomStuff()
     {
 
     }

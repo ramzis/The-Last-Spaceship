@@ -13,7 +13,7 @@ public class Planet : CelestialBody
 
     public override (string, EventID) Interact()
     {
-        if(responses == null) return ("No response...", new EventID());
+        if(responses == null) return ("No response...", new EventID("message"));
         if (responses.Count > timesInteracted)
         {
             var response = responses[timesInteracted];
@@ -22,7 +22,7 @@ public class Planet : CelestialBody
         }
         else
         {
-            return ("No response...", new EventID());
+            return ("No response...", new EventID("message"));
         }
     }
 }
