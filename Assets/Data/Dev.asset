@@ -29,7 +29,7 @@ MonoBehaviour:
   CelestialBody_VisibilityDistance: 75
   ShipCannon_Distance: 5
   PlanetPrefabs:
-  - {fileID: 1190899598417968470, guid: 99bff59e0491ea646a04a06720b3d486, type: 3}
+  - {fileID: 1190899598417968470, guid: db7cb8f0618448a458d533b6c74990cb, type: 3}
   StarPrefabs:
   - {fileID: 1190899598417968470, guid: db7cb8f0618448a458d533b6c74990cb, type: 3}
   - {fileID: 2908899589386641880, guid: d2f23ca252b95e64f984e7e0b6d66800, type: 3}
