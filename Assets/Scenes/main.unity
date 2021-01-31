@@ -4215,7 +4215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameOptions: {fileID: 11400000, guid: 508313ed588a54e40bc57c22cf6b494c, type: 2}
-  RadarUI: {fileID: 0}
+  RadarUI: {fileID: 494936913}
   fuel: 0
 --- !u!50 &2088570946
 Rigidbody2D:
