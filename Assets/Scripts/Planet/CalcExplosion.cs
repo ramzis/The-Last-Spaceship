@@ -77,13 +77,14 @@ public class CalcExplosion : MonoBehaviour
     // }
     int startHitBoxes;
     int endHitBoxes;
+    float resourcesGot;
     int iii;
     public void DoDamage(float power, Vector2 point, bool doHeal){
 
         compute.SetFloat("Dx", (point.x+0.5f*scale-transform.position.x)*(size/scale));
         compute.SetFloat("Dy", (point.y+0.5f*scale-transform.position.y)*(size/scale));
 
-        compute.SetFloat("Power", power/scale);
+        compute.SetFloat("Power", power/Mathf.Sqrt(scale));
         if(!doHeal)
         {   
             compute.Dispatch(0, size / 32, size / 32, 1);
@@ -122,12 +123,14 @@ public class CalcExplosion : MonoBehaviour
             if(arr[iii]==1)
                 endHitBoxes++;
         }
-
+        resourcesGot = (startHitBoxes-endHitBoxes)*scale;
+        if(resourcesGot<0)resourcesGot=0;
         if(OnDamageDone!=null)
         {
-            OnDamageDone(Mathf.Abs(startHitBoxes-endHitBoxes));
-            L.og(L.Contexts.RESOURCES, $"{Mathf.Abs(startHitBoxes-endHitBoxes)}");
+            OnDamageDone(resourcesGot);
+            
         }
+        L.og(L.Contexts.RESOURCES, $"{resourcesGot}");
         //=========
 
         for(int y =0;y<64;y++)
