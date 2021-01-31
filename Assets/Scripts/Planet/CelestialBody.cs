@@ -22,6 +22,8 @@ public abstract class CelestialBody : MonoBehaviour
     public Type BodyType;
     public Sprite[] Sprites;
     public GameObject go;
+    public List<(string, EventID)> responses;
+    protected int timesInteracted;
 
     protected void Start()
     {
