@@ -18,6 +18,7 @@ MonoBehaviour:
   - GAME_MANAGER
   - CELESTIAL_BODY
   - SHIP_CONTROLLER
+  - RESOURCES
   Ship_Speed: 250
   Ship_RotationSpeed: 20
   Ship_InteractionRadius: 3
@@ -30,4 +31,7 @@ MonoBehaviour:
   PlanetPrefabs:
   - {fileID: 1190899598417968470, guid: 99bff59e0491ea646a04a06720b3d486, type: 3}
   StarPrefabs:
-  - {fileID: 1190899598417968470, guid: 34b7d59b8cabce74594247efde878ff7, type: 3}
+  - {fileID: 1190899598417968470, guid: db7cb8f0618448a458d533b6c74990cb, type: 3}
+  - {fileID: 2908899589386641880, guid: d2f23ca252b95e64f984e7e0b6d66800, type: 3}
+  - {fileID: 1569602143407316621, guid: 8e8c4c46566aef84a904d07b8356cf90, type: 3}
+  - {fileID: 5424046751238755029, guid: 46a6188c53a455747b7a08a454e0d322, type: 3}

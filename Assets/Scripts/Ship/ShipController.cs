@@ -13,6 +13,7 @@ public class ShipController : MonoBehaviour, IPlanetNotificationReceiver
     private Rigidbody2D rb;
     private Interactor interactor;
     private HashSet<CelestialBody> nearbyCelestialBodies;
+    public GameObject RadarUI;
 
     void Awake()
     {
@@ -22,6 +23,17 @@ public class ShipController : MonoBehaviour, IPlanetNotificationReceiver
         rb = GetComponent<Rigidbody2D>();
         Debug.Assert(rb != null, "Missing rigidbody!");
         nearbyCelestialBodies = new HashSet<CelestialBody>();
+    }
+
+    void Update()
+    {
+        foreach(var cb in nearbyCelestialBodies)
+        {
+        
+            float angle = Mathf.Atan2(transform.position.y - cb.transform.position.y,transform.position.x - cb.transform.position.x) * Mathf.Rad2Deg+90f;
+            RadarUI.transform.rotation = Quaternion.Euler(0,0,angle);
+            break;
+        }
     }
 
     void ProcessInput()
