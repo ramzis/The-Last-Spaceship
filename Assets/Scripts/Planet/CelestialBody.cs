@@ -10,12 +10,19 @@ public abstract class CelestialBody : MonoBehaviour
     public enum Type
     {
         PLANET,
-        STAR
+        STAR,
+        BEGINNER_PLANET,
+        BEGINNER_STAR,
     }
 
     public struct EventID
     {
         public string ID;
+
+        public EventID(string ID)
+        {
+            this.ID = ID;
+        }
     }
 
     public string Name;
@@ -40,6 +47,10 @@ public abstract class CelestialBody : MonoBehaviour
                 return "Star";
             case Type.PLANET:
                 return "Planet";
+            case Type.BEGINNER_STAR:
+                return "Beginner Star";
+            case Type.BEGINNER_PLANET:
+                return "Beginner Planet";
             default:
                 return "Unknown celestial body type: " + BodyType;
         }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dev
   m_EditorClassIdentifier: 
   doLogging: 1
-  overrideEnableAllContexts: 0
+  overrideEnableAllContexts: 1
   loggingContexts:
   - GAME_MANAGER
   - CELESTIAL_BODY
@@ -21,7 +21,7 @@ MonoBehaviour:
   - RESOURCES
   Ship_Speed: 250
   Ship_RotationSpeed: 20
-  Ship_InteractionRadius: 3
+  Ship_InteractionRadius: 20
   Map_SizeX: 1000
   Map_SizeY: 1000
   Map_SectorCountX: 5
@@ -29,7 +29,14 @@ MonoBehaviour:
   CelestialBody_VisibilityDistance: 75
   ShipCannon_Distance: 5
   PlanetPrefabs:
-  - {fileID: 1190899598417968470, guid: db7cb8f0618448a458d533b6c74990cb, type: 3}
+  - {fileID: 6983129560276838876, guid: b03a85cc233c7ef4eacfcfcf5f20d53e, type: 3}
+  - {fileID: 269444447542981507, guid: 4ce231b5dea6eeb4cad176115eb35d43, type: 3}
+  - {fileID: 7459887935200016831, guid: f0bef88b2531aa246afaa6ad9192480e, type: 3}
+  - {fileID: 6725604686681548996, guid: 58e5f4b4085be3b4b97e690bca7910ef, type: 3}
+  - {fileID: 772903883090420086, guid: ff9776a3a03d52b4593afcffde1816be, type: 3}
+  - {fileID: 5470964774047918569, guid: 327e3983e57b67a4c8f1c3dff84fef1b, type: 3}
+  - {fileID: 1110728905980547115, guid: 68802e93220509d42b8700159c516706, type: 3}
+  - {fileID: 6505026437619791709, guid: 9566d3997d5c2484c967dfed62b048cb, type: 3}
   StarPrefabs:
   - {fileID: 1190899598417968470, guid: db7cb8f0618448a458d533b6c74990cb, type: 3}
   - {fileID: 2908899589386641880, guid: d2f23ca252b95e64f984e7e0b6d66800, type: 3}

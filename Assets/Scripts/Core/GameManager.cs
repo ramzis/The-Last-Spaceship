@@ -32,6 +32,44 @@ public class GameManager : MonoBehaviour
         StartCoroutine(GameLoop());
     }
 
+    public void HandleEvent((string msg, CelestialBody.EventID cbEvent) e)
+    {
+        switch (e.cbEvent.ID)
+        {
+            case "message":
+            {
+                TextboxManager.TextQueue.Enqueue(e.msg);
+                break;
+            }
+            case "first star":
+            {
+                TextboxManager.TextQueue.Enqueue("A star is a great source of fuel for your ship. Use the mining beam to collect it’s energy.");
+                break;
+            }
+            case "first planet":
+            {
+                TextboxManager.TextQueue.Enqueue("You’ve come upon a planet. Press scan when in range to gather information.");
+                break;
+            }
+            case "interact beginner planet":
+            {
+                gameState = GameState.STATE_WAITING_FOR_STAR_INTERACTION;
+                break;
+            }
+            case "destroying first star":
+            {
+                gameState = GameState.STATE_DESTROYING_STARS;
+                break;
+            }
+            case "full fuel":
+            {
+                if (gameState != GameState.STATE_DESTROYING_STARS) break;
+                gameState = GameState.STATE_WAITING_FOR_FULL_FUEL;
+                break;
+            }
+        }
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F2))
@@ -50,6 +88,7 @@ public class GameManager : MonoBehaviour
         STATE_WAITING_FOR_SETTLE
     }
 
+    [SerializeField]
     private GameState gameState;
     IEnumerator GameLoop()
     {
@@ -102,7 +141,7 @@ public class GameManager : MonoBehaviour
             for (int x = 0; x < GameOptions.Map_SectorCountX; x++)
             {
                 var xPos = (-GameOptions.Map_SizeX / 2) + ((x) * sectorWidth);
-                var planet1 = (Planet) CelestialBodyManager.CreateCelestialBody(CelestialBody.Type.PLANET,
+                var planet1 = (Planet) CelestialBodyManager.CreateCelestialBody(CelestialBody.Type.BEGINNER_PLANET,
                     new Vector2(xPos, yPos), false);
             }
         }

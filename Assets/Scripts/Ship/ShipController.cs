@@ -15,6 +15,7 @@ public class ShipController : MonoBehaviour, IPlanetNotificationReceiver
     private HashSet<CelestialBody> nearbyCelestialBodies;
     public GameObject RadarUI;
     public float fuel=0;
+    private GameManager gm;
 
     void Awake()
     {
@@ -24,6 +25,9 @@ public class ShipController : MonoBehaviour, IPlanetNotificationReceiver
         rb = GetComponent<Rigidbody2D>();
         Debug.Assert(rb != null, "Missing rigidbody!");
         nearbyCelestialBodies = new HashSet<CelestialBody>();
+        gm = GameObject.FindObjectOfType<GameManager>();
+        Debug.Assert(interactor != null, "Missing game manager!");
+        Debug.Assert(RadarUI != null, "Missing radar ui!");
     }
 
     void Update()
@@ -31,7 +35,6 @@ public class ShipController : MonoBehaviour, IPlanetNotificationReceiver
 
         foreach(var cb in nearbyCelestialBodies)
         {   
-            
             float angle = Mathf.Atan2(transform.position.y - cb.transform.position.y,transform.position.x - cb.transform.position.x) * Mathf.Rad2Deg+90f;
             RadarUI.transform.rotation = Quaternion.Euler(0,0,angle);
             break;
@@ -82,6 +85,7 @@ public class ShipController : MonoBehaviour, IPlanetNotificationReceiver
             foreach (var cb in cbs)
             {
                 var response = cb.Interact();
+                gm.HandleEvent(response);
                 L.og(L.Contexts.SHIP_CONTROLLER, $"{cb.BodyType} {cb.Name} said: {response}");
             }
         }
@@ -106,16 +110,40 @@ public class ShipController : MonoBehaviour, IPlanetNotificationReceiver
     void AddFuel(float f){
         fuel+=f;
     }
+
+    private bool seenAPlanet;
+    private bool seenAStar;
     public void Notify(CelestialBody cb, bool inRange)
     {
+        switch (cb)
+        {
+            case Planet p:
+                if (!seenAPlanet)
+                {
+                    gm.HandleEvent(("", new CelestialBody.EventID("first planet")));
+                    seenAPlanet = true;
+                }
+                break;
+            case Star s:
+                if (!seenAStar)
+                {
+                    gm.HandleEvent(("", new CelestialBody.EventID("first star")));
+                    seenAStar = true;
+                }
+                break;
+        }
+
         if (inRange) {
             nearbyCelestialBodies.Add(cb);
             RadarUI.SetActive(true);
-            cb.GetComponent<CalcExplosion>().OnDamageDone += AddFuel;
+            var exp = cb.GetComponent<CalcExplosion>();
+            if(exp != null) exp.OnDamageDone += AddFuel;
         }
         else{
             nearbyCelestialBodies.Remove(cb);
             RadarUI.SetActive(false);
+            var exp = cb.GetComponent<CalcExplosion>();
+            if(exp != null) exp.OnDamageDone -= AddFuel;
         }
         var msg = inRange ? "in" : "out of";
         L.og(L.Contexts.SHIP_CONTROLLER, $"Planet {cb.Name} {msg} range");

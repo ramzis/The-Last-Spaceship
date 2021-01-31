@@ -80,6 +80,32 @@ public class CelestialBodyManager : MonoBehaviour
                 cb_go.SetActive(active);
                 return cb;
             }
+            case CelestialBody.Type.BEGINNER_PLANET:
+            {
+                var planetPrefab = GameOptions.PlanetPrefabs[
+                    Random.Range(0, GameOptions.PlanetPrefabs.Length)];
+                var cb_go = GameObject.Instantiate(planetPrefab, Vector3.zero, Quaternion.identity);
+                var cb = cb_go.AddComponent<Planet>();
+                cb.responses = new List<(string, CelestialBody.EventID)>()
+                {
+                    ("There is no life on this planet. However, you’ve picked up a signal from an abandoned transmitter. It says a sector number G21. Sounds familiar.", new CelestialBody.EventID("interact beginner planet")),
+                    ("There is no life on this planet. However, you’ve picked up a signal from an abandoned transmitter. It says a sector number G21. Sounds familiar.", new CelestialBody.EventID("message")),
+                    ("Nothing to see here...", new CelestialBody.EventID("message"))
+                };
+                cb.Name = "Planet_"+planetCount;
+                planetCount++;
+                cb.go = cb_go;
+                var trigger_go = new GameObject("Trigger");
+                trigger_go.layer = LayerMask.NameToLayer("Ignore Raycast");
+                var trigger = trigger_go.AddComponent<CircleCollider2D>();
+                trigger.isTrigger = true;
+                trigger.radius = GameOptions.CelestialBody_VisibilityDistance;
+                cb_go.transform.SetParent(trigger_go.transform);
+                trigger_go.AddComponent<HandleTrigger>();
+                trigger_go.transform.position = pos;
+                cb_go.SetActive(active);
+                return cb;
+            }
             case CelestialBody.Type.STAR:
             {
                 var starPrefab = GameOptions.StarPrefabs[
