@@ -73,12 +73,21 @@ public class ShipCannon : MonoBehaviour
     }
 
     private RaycastHit2D hit;
+    bool firstHit = false;
     public (Vector2, bool) ShootRay(bool doHeal)
     {
         hit = Physics2D.Raycast(transform.position, transform.up, GameOptions.ShipCannon_Distance, RaycastMask);
         if (hit.collider == null) return (Vector2.zero, false);
         var calc = hit.collider.transform.GetComponent<CalcExplosion>();
-        if (calc != null) calc.DoDamage(100f, hit.point, doHeal);
+        if (calc != null) 
+        {
+            if(!firstHit)
+            {
+                firstHit=true;
+                GameObject.FindObjectOfType<GameManager>().HandleEvent(("", new CelestialBody.EventID("destroying first star")));
+            }
+            calc.DoDamage(100f, hit.point, doHeal);
+        }
         return (hit.point, true);
     }
 }

@@ -30,7 +30,7 @@ public class ShipController : MonoBehaviour, IPlanetNotificationReceiver
         Debug.Assert(interactor != null, "Missing game manager!");
         Debug.Assert(RadarUI != null, "Missing radar ui!");
     }
-
+    bool isfullFuel = false;
     void Update()
     {
         ProcessInput();
@@ -41,6 +41,11 @@ public class ShipController : MonoBehaviour, IPlanetNotificationReceiver
             float angle = Mathf.Atan2(transform.position.y - cb.transform.position.y,transform.position.x - cb.transform.position.x) * Mathf.Rad2Deg+90f;
             RadarUI.transform.rotation = Quaternion.Euler(0,0,angle);
             break;
+        }
+        if(fuel>100000 && !isfullFuel )
+        {
+            isfullFuel=true;
+            gm.HandleEvent(("", new CelestialBody.EventID("full fuel")));
         }
     }
 
