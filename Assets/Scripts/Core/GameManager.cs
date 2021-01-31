@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
         Random.InitState(DateTime.Now.Millisecond);
         StartCoroutine(GameLoop());
     }
+    
 
     public void HandleEvent((string msg, CelestialBody.EventID cbEvent) e)
     {
@@ -68,7 +69,18 @@ public class GameManager : MonoBehaviour
                 gameState = GameState.STATE_WAITING_FOR_FULL_FUEL;
                 break;
             }
+            case "home":
+            {
+                TextboxManager.TextQueue.Enqueue(e.msg);
+                Invoke("GoHome",4f);
+                break;
+            }
         }
+    }
+
+    void GoHome()
+    {
+        SceneManager.LoadScene("credits");
     }
 
     void Update()
@@ -126,9 +138,6 @@ public class GameManager : MonoBehaviour
 
         SpawnRandomStuff();
         yield return new WaitWhile(() => gameState != GameState.STATE_WAITING_FOR_SETTLE);
-
-        Scene scene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(scene.name);
 
         yield return null;
     }
@@ -213,21 +222,21 @@ public class GameManager : MonoBehaviour
 
     void SpawnRandomStuff()
     {
-        for (int y = Mathf.FloorToInt(-GameOptions.Map_SizeY / 2); y < (GameOptions.Map_SizeY / 2); y++)
+        for (int y = Mathf.FloorToInt(-GameOptions.Map_SizeY / 2); y < (GameOptions.Map_SizeY / 2); y+=30)
         {
-            for (int x = Mathf.FloorToInt(-GameOptions.Map_SizeX / 2); x < GameOptions.Map_SizeX; x++)
+            for (int x = Mathf.FloorToInt(-GameOptions.Map_SizeX / 2); x < GameOptions.Map_SizeX; x+=30)
             {
-                if (Random.Range(0, 100f) > .90f)
+                if (Random.Range(0, 100f) > 90f)
                 {
                     if (Random.Range(0, 100f) < .33f)
                     {
-                        var star1 = (Star) CelestialBodyManager.CreateCelestialBody(CelestialBody.Type.BEGINNER_STAR,
-                            new Vector2(x, y), false);
+                        var star1 = (Star) CelestialBodyManager.CreateCelestialBody(CelestialBody.Type.STAR,
+                            new Vector2(x+Random.Range(-15f,15f), y+Random.Range(-15f,15f)), false);
                     }
                     else
                     {
-                        var planet1 = (Planet) CelestialBodyManager.CreateCelestialBody(CelestialBody.Type.BEGINNER_PLANET,
-                            new Vector2(x, y), false);
+                        var planet1 = (Planet) CelestialBodyManager.CreateCelestialBody(CelestialBody.Type.PLANET,
+                            new Vector2(x+Random.Range(-15f,15f), y+Random.Range(-15f,15f)), false);
                     }
                 }
             }
