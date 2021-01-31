@@ -7,15 +7,15 @@ public class ChangeScene : MonoBehaviour
 {
     public void Play()
     {
-        SceneManager.LoadScene(0); // 0 - main
+        SceneManager.LoadScene("main"); // 0 - main
     }
     public void Credits()
     {
-        SceneManager.LoadScene(2); // 0 - main
+        SceneManager.LoadScene("credits"); // 0 - main
     }
     public void Back()
     {
-        SceneManager.LoadScene(1); // 0 - main
+        SceneManager.LoadScene("menu"); // 0 - main
     }
     public void Quit()
     {
