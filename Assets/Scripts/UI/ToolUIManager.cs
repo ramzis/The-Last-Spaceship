@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ToolUIManager : MonoBehaviour
 {
@@ -72,7 +73,7 @@ public class ToolUIManager : MonoBehaviour
 
     void Pulse(GameObject toolIndicator, float time)
     {
-        SpriteRenderer sprite = toolIndicator.GetComponent<SpriteRenderer>();
+        Image sprite = toolIndicator.GetComponent<Image>();
         time = (time % 0.5f) / 0.5f * 2f;
 
         float additionalGreen = Mathf.Sin(time * Mathf.PI);
@@ -86,7 +87,7 @@ public class ToolUIManager : MonoBehaviour
     {
         foreach (GameObject indicator in _toolList)
         {
-            SpriteRenderer sprite = indicator.GetComponent<SpriteRenderer>();
+            Image sprite = indicator.GetComponent<Image>();
 
             if (indicator == _toolList[(int)CurrentTool])
                 sprite.color = new Color(1, 1, 1, 1);
