@@ -56,7 +56,7 @@ public class CelestialBodyManager : MonoBehaviour
 
     private int planetCount = 0;
     private int starCount = 0;
-    public CelestialBody CreateCelestialBody(CelestialBody.Type type)
+    public CelestialBody CreateCelestialBody(CelestialBody.Type type, Vector2 pos, bool active)
     {
         switch (type)
         {
@@ -76,6 +76,8 @@ public class CelestialBodyManager : MonoBehaviour
                 trigger.radius = GameOptions.CelestialBody_VisibilityDistance;
                 cb_go.transform.SetParent(trigger_go.transform);
                 trigger_go.AddComponent<HandleTrigger>();
+                trigger_go.transform.position = pos;
+                cb_go.SetActive(active);
                 return cb;
             }
             case CelestialBody.Type.STAR:
@@ -94,6 +96,8 @@ public class CelestialBodyManager : MonoBehaviour
                 trigger.radius = GameOptions.CelestialBody_VisibilityDistance;
                 cb_go.transform.SetParent(trigger_go.transform);
                 trigger_go.AddComponent<HandleTrigger>();
+                trigger_go.transform.position = pos;
+                cb_go.SetActive(active);
                 return cb;
             }
             default:

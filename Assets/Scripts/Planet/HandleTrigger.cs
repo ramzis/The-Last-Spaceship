@@ -20,7 +20,7 @@ public class HandleTrigger : MonoBehaviour
         var receiver = other.GetComponent<IPlanetNotificationReceiver>();
         if (receiver == null || cb == null)
         {
-            L.og(L.Contexts.CELESTIAL_BODY, $"{cb.Name} can't notify: receiver or cb null");
+            if(cb != null) L.og(L.Contexts.CELESTIAL_BODY, $"{cb.Name} can't notify: receiver or cb null");
             return;
         }
         receiver.Notify(cb, true);
