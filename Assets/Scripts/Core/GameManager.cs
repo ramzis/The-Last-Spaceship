@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
         Random.InitState(DateTime.Now.Millisecond);
         StartCoroutine(GameLoop());
     }
+    
 
     public void HandleEvent((string msg, CelestialBody.EventID cbEvent) e)
     {
@@ -71,10 +72,15 @@ public class GameManager : MonoBehaviour
             case "home":
             {
                 TextboxManager.TextQueue.Enqueue(e.msg);
-                SceneManager.LoadScene("credits");
+                Invoke("GoHome",4f);
                 break;
             }
         }
+    }
+
+    void GoHome()
+    {
+        SceneManager.LoadScene("credits");
     }
 
     void Update()
