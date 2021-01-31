@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Logging;
 using UnityEngine;
+using TMPro;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Interactor))]
@@ -17,6 +18,7 @@ public class ShipController : MonoBehaviour, IPlanetNotificationReceiver
     public GameObject RadarUI;
     public float fuel=0;
     private GameManager gm;
+    public TextMeshProUGUI fuelCounter;
 
     void Awake()
     {
@@ -42,6 +44,7 @@ public class ShipController : MonoBehaviour, IPlanetNotificationReceiver
             RadarUI.transform.rotation = Quaternion.Euler(0,0,angle);
             break;
         }
+        fuelCounter.text = "Fuel: " + fuel + "/100k";
         if(fuel>100000 && !isfullFuel )
         {
             isfullFuel=true;
