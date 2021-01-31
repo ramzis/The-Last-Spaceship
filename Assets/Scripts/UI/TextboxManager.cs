@@ -5,6 +5,8 @@ using TMPro;
 
 public class TextboxManager : MonoBehaviour
 {
+    public Animator animator;
+
     public Queue<string> TextQueue;
     public TMP_Text TextPrinter;
 
@@ -16,6 +18,7 @@ public class TextboxManager : MonoBehaviour
 
     public void StartText(string[] newText)
     {
+        animator.SetBool("IsOpen", true);
         TextQueue.Clear();
         foreach (string text in newText)
         {
@@ -28,14 +31,16 @@ public class TextboxManager : MonoBehaviour
 
     IEnumerator TypeText()
     {
-        while (true)//(TextQueue.Count > 0)
+        while (true)
         {
             if (TextQueue.Count < 1)
             {
                 TextPrinter.text = "";
                 yield return new WaitForSecondsRealtime(1f);
+                animator.SetBool("IsOpen", false);
                 continue;
             }
+            else animator.SetBool("IsOpen", true);
 
             string str = TextQueue.Dequeue();
             TextPrinter.text = str;

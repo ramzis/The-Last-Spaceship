@@ -14,7 +14,6 @@ public class ShipCannon : MonoBehaviour
 
     public LayerMask RaycastMask;
 
-    public static Action<bool> OnShipToolSwitch;
     public static Action<bool> OnShipCannonActive;
     public static Action<bool> OnShipCannonDisabled;
 
@@ -30,25 +29,25 @@ public class ShipCannon : MonoBehaviour
         Debug.Assert(Line != null, "Missing line renderer!");
     }
 
-    private Vector2 hitPosition;
-    private bool success;
     private bool doHeal;
-    void FixedUpdate()
+    void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            doHeal = !doHeal;
-            if(OnShipToolSwitch != null) OnShipToolSwitch(doHeal);
-        }
-        Line.enabled = false;
-        if (Input.GetKeyDown(KeyCode.Space) && OnShipCannonActive != null)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             OnShipCannonActive(doHeal);
         }
-        if (Input.GetKeyUp(KeyCode.Space) && OnShipCannonDisabled != null)
+        if (Input.GetKeyUp(KeyCode.Space))
         {
             OnShipCannonDisabled(doHeal);
         }
+    }
+
+    private Vector2 hitPosition;
+    private bool success;
+    void FixedUpdate()
+    {
+        Line.enabled = false;
+        
         if (Input.GetKey(KeyCode.Space))
         {
             success = false;

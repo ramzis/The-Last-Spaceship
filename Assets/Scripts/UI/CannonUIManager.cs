@@ -7,10 +7,10 @@ using UnityEngine.UI;
 public class CannonUIManager : MonoBehaviour
 {
     public GameObject Dial;
+    public float DegreeRotationPerSecond = 45;
 
     private RectTransform _dialSprite;
     private bool _activated = false;
-    private float _activeDuration;
 
     private void OnEnable()
     {
@@ -21,21 +21,13 @@ public class CannonUIManager : MonoBehaviour
     void Start()
     {
         _dialSprite = Dial.GetComponent<RectTransform>();
-        IdleReset();
     }
 
     void Update()
     {
         if (_activated)
         {
-            _activeDuration += Time.deltaTime;
-
-            Pulse(_activeDuration);
-        }
-        else
-        {
-            _activeDuration = 0;
-            IdleReset();
+            _dialSprite.Rotate(0, 0, Time.deltaTime * DegreeRotationPerSecond);
         }
     }
 
@@ -47,19 +39,5 @@ public class CannonUIManager : MonoBehaviour
     void DeactivateTool(bool Heal)
     {
         _activated = false;
-    }
-
-    void Pulse(float time)
-    {
-        time = time % 360;
-
-        _dialSprite.rotation = Quaternion.Euler(0, 0, time);
-    }
-
-    void IdleReset()
-    {
-        RectTransform sprite = Dial.GetComponent<RectTransform>();
-
-        _dialSprite.rotation = Quaternion.Euler(0, 0, 0);
     }
 }
