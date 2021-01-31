@@ -47,7 +47,20 @@ public class GameManager : MonoBehaviour
         SectorResolver.OnNewSector += SectorUIManager.UpdateSector;
 
         // var planet1 = (Planet)CelestialBodyManager.CreateCelestialBody(CelestialBody.Type.PLANET);
-        var star1 = (Star)CelestialBodyManager.CreateCelestialBody(CelestialBody.Type.STAR);
+
+        int sectorWidth = Mathf.FloorToInt(GameOptions.Map_SizeX / GameOptions.Map_SectorCountX);
+        int sectorHeight = Mathf.FloorToInt(GameOptions.Map_SizeY / GameOptions.Map_SectorCountY);
+
+        for (int y = 0; y < GameOptions.Map_SectorCountY; y++)
+        {
+            var yPos = (-GameOptions.Map_SizeY / 2) + ((y) * sectorHeight);
+            for (int x = 0; x < GameOptions.Map_SectorCountX; x++)
+            {
+                var xPos = (-GameOptions.Map_SizeX / 2) + ((x) * sectorWidth);
+                var star1 = (Star) CelestialBodyManager.CreateCelestialBody(CelestialBody.Type.STAR,
+                    new Vector2(xPos, yPos), false);
+            }
+        }
 
         yield return null;
     }
