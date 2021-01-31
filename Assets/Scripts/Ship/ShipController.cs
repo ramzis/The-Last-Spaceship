@@ -19,6 +19,7 @@ public class ShipController : MonoBehaviour, IPlanetNotificationReceiver
     public float fuel=0;
     private GameManager gm;
     public TextMeshProUGUI fuelCounter;
+    public AudioSource sonar;
 
     void Awake()
     {
@@ -98,6 +99,7 @@ public class ShipController : MonoBehaviour, IPlanetNotificationReceiver
 
         if (Input.GetKeyDown(KeyCode.E))
         {
+            if(sonar != null) sonar.PlayOneShot(sonar.clip);
             gameObject.GetComponentInChildren<Animator>().SetTrigger("Pulse");
             var cbs = interactor.Interact();
             if (OnInteract != null) OnInteract();
