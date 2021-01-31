@@ -133,8 +133,11 @@ public class GameManager : MonoBehaviour
         yield return null;
     }
 
+
+    private List<Planet> begPlanets;
     void SpawnArrayOfBeginnerPlanets()
     {
+        begPlanets = new List<Planet>();
         int sectorWidth = Mathf.FloorToInt(GameOptions.Map_SizeX / GameOptions.Map_SectorCountX);
         int sectorHeight = Mathf.FloorToInt(GameOptions.Map_SizeY / GameOptions.Map_SectorCountY);
 
@@ -146,6 +149,7 @@ public class GameManager : MonoBehaviour
                 var xPos = (-GameOptions.Map_SizeX / 2) + ((x) * sectorWidth);
                 var planet1 = (Planet) CelestialBodyManager.CreateCelestialBody(CelestialBody.Type.BEGINNER_PLANET,
                     new Vector2(xPos, yPos), false);
+                begPlanets.Add(planet1);
             }
         }
     }
@@ -155,24 +159,79 @@ public class GameManager : MonoBehaviour
 
     }
 
+    private List<Star> begStars;
     void SpawnArrayOfBeginnerStars()
     {
+        begStars = new List<Star>();
+        int sectorWidth = Mathf.FloorToInt(GameOptions.Map_SizeX / GameOptions.Map_SectorCountX);
+        int sectorHeight = Mathf.FloorToInt(GameOptions.Map_SizeY / GameOptions.Map_SectorCountY);
 
+        for (int y = 0; y < GameOptions.Map_SectorCountY; y++)
+        {
+            var yPos = (-GameOptions.Map_SizeY / 2) + ((y) * sectorHeight);
+            for (int x = 0; x < GameOptions.Map_SectorCountX; x++)
+            {
+                var xPos = (-GameOptions.Map_SizeX / 2) + ((x) * sectorWidth);
+                var star1 = (Star) CelestialBodyManager.CreateCelestialBody(CelestialBody.Type.STAR,
+                    new Vector2(xPos, yPos), false);
+                begStars.Add(star1);
+            }
+        }
     }
 
     void DestroyBeginnerStars()
     {
-
+        foreach (var planet in begStars)
+        {
+            if(planet == null) continue;
+            if (!planet.gameObject.activeSelf)
+            {
+                Destroy(planet.transform.parent);
+            }
+            else
+            {
+                planet.gameObject.AddComponent<DisableDestroy>();
+            }
+        }
     }
 
     void DestroyBegginerPlanets()
     {
-
+        foreach (var planet in begPlanets)
+        {
+            if(planet == null) continue;
+            if (!planet.gameObject.activeSelf)
+            {
+                Destroy(planet.transform.parent.gameObject);
+            }
+            else
+            {
+                planet.gameObject.AddComponent<DisableDestroy>();
+            }
+        }
     }
 
     void SpawnRandomStuff()
     {
-
+        for (int y = Mathf.FloorToInt(-GameOptions.Map_SizeY / 2); y < (GameOptions.Map_SizeY / 2); y++)
+        {
+            for (int x = Mathf.FloorToInt(-GameOptions.Map_SizeX / 2); x < GameOptions.Map_SizeX; x++)
+            {
+                if (Random.Range(0, 100f) > .90f)
+                {
+                    if (Random.Range(0, 100f) < .33f)
+                    {
+                        var star1 = (Star) CelestialBodyManager.CreateCelestialBody(CelestialBody.Type.BEGINNER_STAR,
+                            new Vector2(x, y), false);
+                    }
+                    else
+                    {
+                        var planet1 = (Planet) CelestialBodyManager.CreateCelestialBody(CelestialBody.Type.BEGINNER_PLANET,
+                            new Vector2(x, y), false);
+                    }
+                }
+            }
+        }
     }
 
     void SetLoggingOptions()

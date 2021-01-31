@@ -13,7 +13,7 @@ public class ShipController : MonoBehaviour, IPlanetNotificationReceiver
     public Action<bool> OnEngineRunningStateChange;
     private Rigidbody2D rb;
     private Interactor interactor;
-    private HashSet<CelestialBody> nearbyCelestialBodies;
+    public HashSet<CelestialBody> nearbyCelestialBodies;
     public GameObject RadarUI;
     public float fuel=0;
     private GameManager gm;
