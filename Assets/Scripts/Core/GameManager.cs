@@ -11,11 +11,15 @@ public class GameManager : MonoBehaviour
 {
     public GameOptions GameOptions;
     public CelestialBodyManager CelestialBodyManager;
+    public SectorUIManager SectorUIManager;
+    public SectorResolver SectorResolver;
 
     private void OnValidate()
     {
         Debug.Assert(GameOptions != null, "Missing game options!");
         Debug.Assert(CelestialBodyManager != null, "Missing celestial body manager!");
+        Debug.Assert(SectorUIManager != null, "Missing sector ui manager!");
+        Debug.Assert(SectorResolver != null, "Missing sector resolver!");
     }
 
     void Start()
@@ -38,6 +42,9 @@ public class GameManager : MonoBehaviour
     IEnumerator GameLoop()
     {
         L.og(L.Contexts.GAME_MANAGER, "Starting GameLoop()");
+
+        SectorUIManager.ToggleSectorView(true);
+        SectorResolver.OnNewSector += SectorUIManager.UpdateSector;
 
         // var planet1 = (Planet)CelestialBodyManager.CreateCelestialBody(CelestialBody.Type.PLANET);
         var star1 = (Star)CelestialBodyManager.CreateCelestialBody(CelestialBody.Type.STAR);
