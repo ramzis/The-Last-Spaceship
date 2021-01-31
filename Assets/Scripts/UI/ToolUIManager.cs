@@ -22,7 +22,6 @@ public class ToolUIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        ShipCannon.OnShipToolSwitch += switchTool;
         ShipCannon.OnShipCannonActive += ActivateTool;
         ShipCannon.OnShipCannonDisabled += DeactivateTool;
     }
@@ -49,16 +48,6 @@ public class ToolUIManager : MonoBehaviour
             ActiveDuration = 0;
             IdleReset();
         }
-    }
-
-    void switchTool(bool Heal)
-    {
-        if (Heal)
-            CurrentTool = ShipTool.Fix;
-        else
-            CurrentTool = ShipTool.Mine;
-
-        IdleReset();
     }
 
     void ActivateTool(bool Heal)
