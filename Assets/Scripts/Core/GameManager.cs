@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
             }
             case "interact beginner planet":
             {
+                TextboxManager.TextQueue.Enqueue(e.msg);
                 gameState = GameState.STATE_WAITING_FOR_STAR_INTERACTION;
                 break;
             }
