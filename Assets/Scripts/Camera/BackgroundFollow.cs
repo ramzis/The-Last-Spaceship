@@ -14,7 +14,7 @@ public class BackgroundFollow : MonoBehaviour
             for(int x=0;x<7;x++)
             {
                 tiles[x+y*7].transform.position = new Vector3((x-3)*10.24f,(y-2)*10.24f,0);
-                //tiles[x+y*7].transform.rotation = Quaternion.Euler(0,0,Random.Range(0,4)*90f);
+                tiles[x+y*7].transform.rotation = Quaternion.Euler(0,0,Random.Range(0,4)*90f);
             }
         }
     }
