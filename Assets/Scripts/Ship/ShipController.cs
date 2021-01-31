@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Logging;
@@ -14,6 +14,7 @@ public class ShipController : MonoBehaviour, IPlanetNotificationReceiver
     private Interactor interactor;
     private HashSet<CelestialBody> nearbyCelestialBodies;
     public GameObject RadarUI;
+    public float fuel=0;
 
     void Awake()
     {
@@ -27,9 +28,10 @@ public class ShipController : MonoBehaviour, IPlanetNotificationReceiver
 
     void Update()
     {
+
         foreach(var cb in nearbyCelestialBodies)
-        {
-        
+        {   
+            
             float angle = Mathf.Atan2(transform.position.y - cb.transform.position.y,transform.position.x - cb.transform.position.x) * Mathf.Rad2Deg+90f;
             RadarUI.transform.rotation = Quaternion.Euler(0,0,angle);
             break;
@@ -101,10 +103,20 @@ public class ShipController : MonoBehaviour, IPlanetNotificationReceiver
         RotateToMouse();
     }
 
+    void AddFuel(float f){
+        fuel+=f;
+    }
     public void Notify(CelestialBody cb, bool inRange)
     {
-        if (inRange) nearbyCelestialBodies.Add(cb);
-        else nearbyCelestialBodies.Remove(cb);
+        if (inRange) {
+            nearbyCelestialBodies.Add(cb);
+            RadarUI.SetActive(true);
+            cb.GetComponent<CalcExplosion>().OnDamageDone += AddFuel;
+        }
+        else{
+            nearbyCelestialBodies.Remove(cb);
+            RadarUI.SetActive(false);
+        }
         var msg = inRange ? "in" : "out of";
         L.og(L.Contexts.SHIP_CONTROLLER, $"Planet {cb.Name} {msg} range");
     }

@@ -123,11 +123,14 @@ public class CalcExplosion : MonoBehaviour
             if(arr[iii]==1)
                 endHitBoxes++;
         }
+        if(endHitBoxes==0)Destroy(gameObject.transform.parent.gameObject);
         resourcesGot = (startHitBoxes-endHitBoxes)*scale;
+
         if(resourcesGot<0)resourcesGot=0;
         if(OnDamageDone!=null)
         {
-            OnDamageDone(resourcesGot);
+            if(resourcesGot!=0)
+                OnDamageDone(resourcesGot);
             
         }
         L.og(L.Contexts.RESOURCES, $"{resourcesGot}");
