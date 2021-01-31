@@ -1659,6 +1659,7 @@ MonoBehaviour:
   CelestialBodyManager: {fileID: 836880686}
   SectorUIManager: {fileID: 1097399754}
   SectorResolver: {fileID: 2088570952}
+  TextboxManager: {fileID: 2029608916}
 --- !u!4 &836880685
 Transform:
   m_ObjectHideFlags: 0

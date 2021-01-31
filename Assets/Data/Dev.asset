@@ -21,11 +21,11 @@ MonoBehaviour:
   Ship_Speed: 250
   Ship_RotationSpeed: 20
   Ship_InteractionRadius: 3
-  Map_SizeX: 20
-  Map_SizeY: 20
+  Map_SizeX: 1000
+  Map_SizeY: 1000
   Map_SectorCountX: 5
   Map_SectorCountY: 5
-  CelestialBody_VisibilityDistance: 28
+  CelestialBody_VisibilityDistance: 75
   ShipCannon_Distance: 5
   PlanetPrefabs:
   - {fileID: 1190899598417968470, guid: 99bff59e0491ea646a04a06720b3d486, type: 3}
