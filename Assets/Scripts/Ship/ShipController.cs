@@ -29,7 +29,6 @@ public class ShipController : MonoBehaviour, IPlanetNotificationReceiver
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
             rb.AddForce(rb.transform.up * Time.deltaTime * GameOptions.Ship_Speed);
-            TextboxManager.Instance.TestText();
         }
         else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {

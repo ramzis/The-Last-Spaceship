@@ -5,15 +5,8 @@ using TMPro;
 
 public class TextboxManager : MonoBehaviour
 {
-    public static TextboxManager Instance;
-
     public Queue<string> TextQueue;
     public TMP_Text TextPrinter;
-
-    private void Awake()
-    {
-        Instance = this;
-    }
 
     void Start()
     {
