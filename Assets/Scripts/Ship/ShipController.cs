@@ -95,6 +95,7 @@ public class ShipController : MonoBehaviour, IPlanetNotificationReceiver
 
         if (Input.GetKeyDown(KeyCode.E))
         {
+            gameObject.GetComponentInChildren<Animator>().SetTrigger("Pulse");
             var cbs = interactor.Interact();
             if (OnInteract != null) OnInteract();
             if (cbs == null) return;
