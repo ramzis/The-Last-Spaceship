@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3033d38c4d36a54459b95b596f069bff, type: 3}
   m_Name: Dev
   m_EditorClassIdentifier: 
-  doLogging: 1
+  doLogging: 0
   overrideEnableAllContexts: 1
   loggingContexts:
   - GAME_MANAGER
