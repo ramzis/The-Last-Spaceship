@@ -10,6 +10,7 @@ public class ShipController : MonoBehaviour, IPlanetNotificationReceiver
 {
     public GameOptions GameOptions;
     public Action OnInteract;
+    public Action<bool> OnEngineRunningStateChange;
     private Rigidbody2D rb;
     private Interactor interactor;
     private HashSet<CelestialBody> nearbyCelestialBodies;
@@ -48,6 +49,14 @@ public class ShipController : MonoBehaviour, IPlanetNotificationReceiver
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
             rb.AddForce(rb.transform.up * Time.deltaTime * GameOptions.Ship_Speed);
+        }
+        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)))
+        {
+            OnEngineRunningStateChange?.Invoke(true);
+        }
+        if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.UpArrow))
+        {
+            OnEngineRunningStateChange?.Invoke(false);
         }
         else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {
