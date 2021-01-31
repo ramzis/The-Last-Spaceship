@@ -13,15 +13,17 @@ MonoBehaviour:
   m_Name: Dev
   m_EditorClassIdentifier: 
   doLogging: 1
-  overrideEnableAllContexts: 1
+  overrideEnableAllContexts: 0
   loggingContexts:
   - GAME_MANAGER
+  - CELESTIAL_BODY
   Ship_Speed: 250
-  Ship_RotationSpeed: 100
+  Ship_RotationSpeed: 20
   Map_SizeX: 20
   Map_SizeY: 20
   Map_SectorCountX: 5
   Map_SectorCountY: 5
+  CelestialBody_VisibilityDistance: 28
   ShipCannon_Distance: 5
   PlanetPrefabs:
   - {fileID: 1190899598417968470, guid: 99bff59e0491ea646a04a06720b3d486, type: 3}

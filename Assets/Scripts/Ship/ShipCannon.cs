@@ -38,7 +38,7 @@ public class ShipCannon : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             doHeal = !doHeal;
-            OnShipToolSwitch(doHeal);
+            if(OnShipToolSwitch != null) OnShipToolSwitch(doHeal);
         }
         Line.enabled = false;
         if (Input.GetKeyDown(KeyCode.Space) && OnShipCannonActive != null)

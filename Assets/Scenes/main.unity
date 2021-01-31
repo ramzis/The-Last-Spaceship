@@ -3044,7 +3044,7 @@ MonoBehaviour:
   GameOptions: {fileID: 11400000, guid: 508313ed588a54e40bc57c22cf6b494c, type: 2}
   RaycastMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 51
 --- !u!120 &2088570950
 LineRenderer:
   m_ObjectHideFlags: 0

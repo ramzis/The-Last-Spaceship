@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Logging;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class ShipController : MonoBehaviour
+public class ShipController : MonoBehaviour, IPlanetNotificationReceiver
 {
     public GameOptions GameOptions;
     private Rigidbody2D rb;
@@ -51,5 +52,11 @@ public class ShipController : MonoBehaviour
     {
         ProcessInput();
         RotateToMouse();
+    }
+
+    public void Notify(CelestialBody cb, bool inRange)
+    {
+        var msg = inRange ? "in" : "out of";
+        L.og(L.Contexts.SHIP_CONTROLLER, $"Planet {cb.Name} {msg} range");
     }
 }

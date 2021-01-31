@@ -54,6 +54,8 @@ public class CelestialBodyManager : MonoBehaviour
         Planets[idOfClosest].SetActive(true);
     }*/
 
+    private int planetCount = 0;
+    private int starCount = 0;
     public CelestialBody CreateCelestialBody(CelestialBody.Type type)
     {
         switch (type)
@@ -64,8 +66,16 @@ public class CelestialBodyManager : MonoBehaviour
                     Random.Range(0, GameOptions.PlanetPrefabs.Length)];
                 var cb_go = GameObject.Instantiate(planetPrefab, Vector3.zero, Quaternion.identity);
                 var cb = cb_go.AddComponent<Planet>();
-                // cb_go.AddComponent<CircleCollider2D>();
+                cb.Name = "Planet_"+planetCount;
+                planetCount++;
                 cb.go = cb_go;
+                var trigger_go = new GameObject("Trigger");
+                trigger_go.layer = LayerMask.NameToLayer("Ignore Raycast");
+                var trigger = trigger_go.AddComponent<CircleCollider2D>();
+                trigger.isTrigger = true;
+                trigger.radius = GameOptions.CelestialBody_VisibilityDistance;
+                cb_go.transform.SetParent(trigger_go.transform);
+                trigger_go.AddComponent<HandleTrigger>();
                 return cb;
             }
             case CelestialBody.Type.STAR:
@@ -74,8 +84,16 @@ public class CelestialBodyManager : MonoBehaviour
                     Random.Range(0, GameOptions.StarPrefabs.Length)];
                 var cb_go = GameObject.Instantiate(starPrefab, Vector3.zero, Quaternion.identity);
                 var cb = cb_go.AddComponent<Star>();
-                // cb_go.AddComponent<CircleCollider2D>();
+                cb.Name = "Star_"+starCount;
+                starCount++;
                 cb.go = cb_go;
+                var trigger_go = new GameObject("Trigger");
+                trigger_go.layer = LayerMask.NameToLayer("Ignore Raycast");
+                var trigger = trigger_go.AddComponent<CircleCollider2D>();
+                trigger.isTrigger = true;
+                trigger.radius = GameOptions.CelestialBody_VisibilityDistance;
+                cb_go.transform.SetParent(trigger_go.transform);
+                trigger_go.AddComponent<HandleTrigger>();
                 return cb;
             }
             default:

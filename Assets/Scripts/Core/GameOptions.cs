@@ -20,6 +20,9 @@ public class GameOptions : ScriptableObject
     public float Map_SectorCountX;
     public float Map_SectorCountY;
 
+    // Celestial Bodies
+    public int CelestialBody_VisibilityDistance;
+
     // Ship Cannon
     public float ShipCannon_Distance;
 
