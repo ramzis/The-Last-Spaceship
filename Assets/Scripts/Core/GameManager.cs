@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
             for (int x = 0; x < GameOptions.Map_SectorCountX; x++)
             {
                 var xPos = (-GameOptions.Map_SizeX / 2) + ((x) * sectorWidth);
-                var star1 = (Star) CelestialBodyManager.CreateCelestialBody(CelestialBody.Type.PLANET,
+                var planet1 = (Planet) CelestialBodyManager.CreateCelestialBody(CelestialBody.Type.PLANET,
                     new Vector2(xPos, yPos), false);
             }
         }
