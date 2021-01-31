@@ -37,8 +37,19 @@ public class ShipController : MonoBehaviour
         }
     }
 
+    float angle;
+    float startRotationOffset = -90;
+    private Vector3 mousePositionInWorld;
+    void RotateToMouse()
+    {
+        mousePositionInWorld = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+        angle = ( Mathf.Atan2 (mousePositionInWorld.y - transform.position.y, mousePositionInWorld.x - transform.position.x) * Mathf.Rad2Deg);
+        transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.Euler(0, 0, angle+startRotationOffset),GameOptions.Ship_RotationSpeed * Time.deltaTime);
+    }
+
     void FixedUpdate()
     {
         ProcessInput();
+        RotateToMouse();
     }
 }
