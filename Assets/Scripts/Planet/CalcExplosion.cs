@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Logging;
+using System;
 
 public class CalcExplosion : MonoBehaviour
 {
@@ -14,10 +16,13 @@ public class CalcExplosion : MonoBehaviour
     public float scale = 1;
 
     BoxCollider2D[] a = new BoxCollider2D[64*64]; 
+
+    public Action<float> OnDamageDone;
     void OnEnable()
     {
         Start();
     }
+    
     void Awake()
     {
         myMaterial = GetComponent<Renderer>().material;
@@ -70,7 +75,9 @@ public class CalcExplosion : MonoBehaviour
         compute.Dispatch(3, size / 32, size / 32, 1);
         
     }
-
+    int startHitBoxes;
+    int endHitBoxes;
+    int iii;
     public void DoDamage(float power, Vector2 point, bool doHeal){
 
         compute.SetFloat("Dx", (point.x+0.5f*scale-transform.position.x)*(size/scale));
@@ -78,11 +85,13 @@ public class CalcExplosion : MonoBehaviour
 
         compute.SetFloat("Power", power/scale);
         if(!doHeal)
-        {
-        compute.Dispatch(0, size / 32, size / 32, 1);
+        {   
+            compute.Dispatch(0, size / 32, size / 32, 1);
+            
         }
         else{
-        compute.Dispatch(3, size / 32, size / 32, 1);
+        // compute.SetFloat("Power", power*10/scale);
+        // compute.Dispatch(3, size / 32, size / 32, 1);
         }
     }
 
@@ -94,10 +103,32 @@ public class CalcExplosion : MonoBehaviour
         //for(int a=0;a<3;a++)
         compute.Dispatch(1, size / 32, size / 32, 1);
 
-
+        //calculate damage done
+        startHitBoxes =0;
+        for( iii =0;iii<64*64;iii++)
+        {
+            if(arr[iii]==1)
+                startHitBoxes ++;
+        }
+        //=========
         compute.Dispatch(2, 64 / 32, 64 / 32, 1);
         
         SamplesForColliders.GetData(arr);
+
+        //calculate damage done
+        endHitBoxes =0;
+        for( iii =0;iii<64*64;iii++)
+        {
+            if(arr[iii]==1)
+                endHitBoxes++;
+        }
+
+        if(OnDamageDone!=null)
+        {
+            OnDamageDone(Mathf.Abs(startHitBoxes-endHitBoxes));
+            L.og(L.Contexts.RESOURCES, $"{Mathf.Abs(startHitBoxes-endHitBoxes)}");
+        }
+        //=========
 
         for(int y =0;y<64;y++)
         {

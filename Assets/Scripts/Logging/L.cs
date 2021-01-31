@@ -52,6 +52,7 @@ namespace Logging
             public static readonly string POSITION_LOOPER = "POSITION_LOOPER";
             public static readonly string SECTOR_RESOLVER = "SECTOR_RESOLVER";
             public static readonly string SHIP_CONTROLLER = "SHIP_CONTROLLER";
+            public static readonly string RESOURCES = "RESOURCES";
         }
     }
 }
