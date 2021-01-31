@@ -57,24 +57,24 @@ public class CalcExplosion : MonoBehaviour
     }
 
     // Update is called once per frame
-    void MouseClick()
-    {
-        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //Debug.Log(worldPosition.x*size);
+    // void MouseClick()
+    // {
+    //     Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //     //Debug.Log(worldPosition.x*size);
 
 
-        compute.SetFloat("Dx", (worldPosition.x+0.5f*scale-transform.position.x)*(size/scale));
-        compute.SetFloat("Dy", (worldPosition.y+0.5f*scale-transform.position.y)*(size/scale));
+    //     compute.SetFloat("Dx", (worldPosition.x+0.5f*scale-transform.position.x)*(size/scale));
+    //     compute.SetFloat("Dy", (worldPosition.y+0.5f*scale-transform.position.y)*(size/scale));
         
 
-        compute.SetFloat("Power", 300f/scale);
-        int kernelId = compute.FindKernel("CSMain");
-        if (Input.GetMouseButtonDown(0))
-        compute.Dispatch(0, size / 32, size / 32, 1);
-        if (Input.GetMouseButtonDown(1))
-        compute.Dispatch(3, size / 32, size / 32, 1);
+    //     compute.SetFloat("Power", 300f/scale);
+    //     int kernelId = compute.FindKernel("CSMain");
+    //     if (Input.GetMouseButtonDown(0))
+    //     compute.Dispatch(0, size / 32, size / 32, 1);
+    //     if (Input.GetMouseButtonDown(1))
+    //     compute.Dispatch(3, size / 32, size / 32, 1);
         
-    }
+    // }
     int startHitBoxes;
     int endHitBoxes;
     int iii;
@@ -98,7 +98,7 @@ public class CalcExplosion : MonoBehaviour
     int[] arr = new int[64*64];
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)||Input.GetMouseButtonDown(1))MouseClick();
+        //if (Input.GetMouseButtonDown(0)||Input.GetMouseButtonDown(1))MouseClick();
         
         //for(int a=0;a<3;a++)
         compute.Dispatch(1, size / 32, size / 32, 1);
