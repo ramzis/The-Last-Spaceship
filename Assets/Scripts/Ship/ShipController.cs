@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Logging;
 using UnityEngine;
@@ -8,12 +9,14 @@ public class ShipController : MonoBehaviour, IPlanetNotificationReceiver
 {
     public GameOptions GameOptions;
     private Rigidbody2D rb;
+    private HashSet<CelestialBody> nearbyCelestialBodies;
 
     void Awake()
     {
         Debug.Assert(GameOptions != null, "Missing game options!");
         rb = GetComponent<Rigidbody2D>();
         Debug.Assert(rb != null, "Missing rigidbody!");
+        nearbyCelestialBodies = new HashSet<CelestialBody>();
     }
 
     void ProcessInput()
@@ -36,6 +39,21 @@ public class ShipController : MonoBehaviour, IPlanetNotificationReceiver
         {
             rb.AddTorque(-Time.deltaTime * GameOptions.Ship_RotationSpeed);
         }
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            if (nearbyCelestialBodies.Count > 0)
+            {
+                foreach (var cb in nearbyCelestialBodies)
+                {
+                    L.og(L.Contexts.SHIP_CONTROLLER, $"I am near: {cb.Name}");
+                }
+            }
+            else
+            {
+                L.og(L.Contexts.SHIP_CONTROLLER, $"There is nothing around me :(");
+            }
+        }
     }
 
     float angle;
@@ -56,6 +74,8 @@ public class ShipController : MonoBehaviour, IPlanetNotificationReceiver
 
     public void Notify(CelestialBody cb, bool inRange)
     {
+        if (inRange) nearbyCelestialBodies.Add(cb);
+        else nearbyCelestialBodies.Remove(cb);
         var msg = inRange ? "in" : "out of";
         L.og(L.Contexts.SHIP_CONTROLLER, $"Planet {cb.Name} {msg} range");
     }
