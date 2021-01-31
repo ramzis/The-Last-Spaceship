@@ -17,8 +17,10 @@ MonoBehaviour:
   loggingContexts:
   - GAME_MANAGER
   - CELESTIAL_BODY
+  - SHIP_CONTROLLER
   Ship_Speed: 250
   Ship_RotationSpeed: 20
+  Ship_InteractionRadius: 3
   Map_SizeX: 20
   Map_SizeY: 20
   Map_SectorCountX: 5
@@ -28,4 +30,4 @@ MonoBehaviour:
   PlanetPrefabs:
   - {fileID: 1190899598417968470, guid: 99bff59e0491ea646a04a06720b3d486, type: 3}
   StarPrefabs:
-  - {fileID: 1190899598417968470, guid: db7cb8f0618448a458d533b6c74990cb, type: 3}
+  - {fileID: 1190899598417968470, guid: 34b7d59b8cabce74594247efde878ff7, type: 3}
