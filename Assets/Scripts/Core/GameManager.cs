@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public CelestialBodyManager CelestialBodyManager;
     public SectorUIManager SectorUIManager;
     public SectorResolver SectorResolver;
+    public TextboxManager TextboxManager;
 
     private void OnValidate()
     {
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
         Debug.Assert(CelestialBodyManager != null, "Missing celestial body manager!");
         Debug.Assert(SectorUIManager != null, "Missing sector ui manager!");
         Debug.Assert(SectorResolver != null, "Missing sector resolver!");
+        Debug.Assert(TextboxManager != null, "Missing textbox manager!");
     }
 
     void Start()
@@ -61,6 +63,9 @@ public class GameManager : MonoBehaviour
                     new Vector2(xPos, yPos), false);
             }
         }
+
+        TextboxManager.TextQueue.Enqueue("Your home planet has been destroyed. Luckily, you managed to escape in your tiny spaceship.");
+        TextboxManager.TextQueue.Enqueue("Since you were young you’d heard of a place with many habitable planets. You know it is in sector G21 but you don’t know where that is, or even where you are. Now, lost and confused, you are wandering the stars to find a new home.");
 
         yield return null;
     }

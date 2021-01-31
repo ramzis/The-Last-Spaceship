@@ -8,15 +8,10 @@ public class TextboxManager : MonoBehaviour
     public Queue<string> TextQueue;
     public TMP_Text TextPrinter;
 
-    void Start()
+    void Awake()
     {
         TextQueue = new Queue<string>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        StartCoroutine(TypeText());
     }
 
     public void StartText(string[] newText)
@@ -33,8 +28,15 @@ public class TextboxManager : MonoBehaviour
 
     IEnumerator TypeText()
     {
-        while (TextQueue.Count > 0)
+        while (true)//(TextQueue.Count > 0)
         {
+            if (TextQueue.Count < 1)
+            {
+                TextPrinter.text = "";
+                yield return new WaitForSecondsRealtime(1f);
+                continue;
+            }
+
             string str = TextQueue.Dequeue();
             TextPrinter.text = str;
 
@@ -46,8 +48,6 @@ public class TextboxManager : MonoBehaviour
 
             yield return new WaitForSecondsRealtime(2.5f);
         }
-
-        TextPrinter.text = "";
     }
 
     public void TestText()
