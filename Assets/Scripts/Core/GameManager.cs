@@ -44,12 +44,12 @@ public class GameManager : MonoBehaviour
             }
             case "first star":
             {
-                TextboxManager.TextQueue.Enqueue("A star is a great source of fuel for your ship. Use the mining beam to collect it’s energy.");
+                TextboxManager.TextQueue.Enqueue("A star is a great source of fuel for your ship. Use the mining beam (SPACE) to collect it’s energy.");
                 break;
             }
             case "first planet":
             {
-                TextboxManager.TextQueue.Enqueue("You’ve come upon a planet. Press scan when in range to gather information.");
+                TextboxManager.TextQueue.Enqueue("You’ve come upon a planet. Press scan (E) when in range to gather information.");
                 break;
             }
             case "interact beginner planet":
