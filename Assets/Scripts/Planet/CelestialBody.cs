@@ -13,6 +13,11 @@ public abstract class CelestialBody : MonoBehaviour
         STAR
     }
 
+    public struct EventID
+    {
+        public string ID;
+    }
+
     public string Name;
     public Type BodyType;
     public Sprite[] Sprites;
@@ -22,6 +27,8 @@ public abstract class CelestialBody : MonoBehaviour
     {
         L.og(L.Contexts.CELESTIAL_BODY, String.Format($"{BodyType} {Name} is alive", BodyType, Name));
     }
+
+    public abstract (string, EventID) Interact();
 
     public new string ToString()
     {

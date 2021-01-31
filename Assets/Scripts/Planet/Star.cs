@@ -10,4 +10,9 @@ public class Star : CelestialBody
     {
         base.Start();
     }
+
+    public override (string, EventID) Interact()
+    {
+        return ($"{name} greets you!", new EventID() {ID = ""});
+    }
 }

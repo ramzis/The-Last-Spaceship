@@ -5,15 +5,20 @@ using Logging;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Interactor))]
 public class ShipController : MonoBehaviour, IPlanetNotificationReceiver
 {
     public GameOptions GameOptions;
+    public Action OnInteract;
     private Rigidbody2D rb;
+    private Interactor interactor;
     private HashSet<CelestialBody> nearbyCelestialBodies;
 
     void Awake()
     {
+        interactor = GetComponent<Interactor>();
         Debug.Assert(GameOptions != null, "Missing game options!");
+        Debug.Assert(interactor != null, "Missing interactor!");
         rb = GetComponent<Rigidbody2D>();
         Debug.Assert(rb != null, "Missing rigidbody!");
         nearbyCelestialBodies = new HashSet<CelestialBody>();
@@ -52,6 +57,18 @@ public class ShipController : MonoBehaviour, IPlanetNotificationReceiver
             else
             {
                 L.og(L.Contexts.SHIP_CONTROLLER, $"There is nothing around me :(");
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            var cbs = interactor.Interact();
+            if (OnInteract != null) OnInteract();
+            if (cbs == null) return;
+            foreach (var cb in cbs)
+            {
+                var response = cb.Interact();
+                L.og(L.Contexts.SHIP_CONTROLLER, $"{cb.BodyType} {cb.Name} said: {response}");
             }
         }
     }
